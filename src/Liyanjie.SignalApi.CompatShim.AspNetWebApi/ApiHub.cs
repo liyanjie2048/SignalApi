@@ -7,46 +7,45 @@ using System.Threading.Tasks;
 
 using Liyanjie.SignalApi.Common;
 
-using Newtonsoft.Json;
+using Microsoft.AspNet.SignalR;
 
-namespace Liyanjie.SignalApi.CompatShim.AspNetWebApi
+namespace Liyanjie.SignalApi.CompatShim
 {
-    public class ApiHub : Microsoft.AspNet.SignalR.Hub<IApiClient>
+    public class ApiHub : Hub<IApiClient>, IApiHub
     {
-        public async Task<SignalResult> DispatchAsync(SignalCall call)
+        public async Task CallApi(SignalCall call)
         {
-            var req = JsonConvert.DeserializeObject<ApiRequest>(call.Data);
-            req.Headers.Add(HeaderKeys.ConnectionId, new[] { Context.ConnectionId });
+            await Clients.Caller.Trace($"Client call [{call.Method}] received");
 
-            await Clients.Caller.Handle(new SignalCall
-            {
-                Method = "Trace",
-                Data = $"Received client call:{req.HttpMethod}-{call.Method}",
-            });
+            var data = (call.Parameters as Newtonsoft.Json.Linq.JObject)?.ToObject<ApiRequest>() ?? new ApiRequest();
+            data.Headers.Add(HeaderKeys.ConnectionId, new[] { Context.ConnectionId });
 
             try
             {
-                var request = CreateRequest(req.HttpMethod, call.Method, req.Headers, req.Body);
+                var request = CreateRequest(call.Method, data.HttpMethod, data.Headers, data.Body);
                 var response = await GetResponse(request);
-                var code = (int)response.StatusCode;
-                var data = new
+
+                await Clients.Caller.Trace($"Client call [{call.Method}] done: {response.StatusCode}");
+
+                if (response.IsSuccessStatusCode)
                 {
-                    Headers = response.Headers.ToDictionary(_ => _.Key, _ => _.Value),
-                    Body = await response.Content.ReadAsStringAsync(),
-                };
-                return new SignalResult
-                {
-                    Code = code.ToString(),
-                    Data = JsonConvert.SerializeObject(data),
-                };
+                    if (!string.IsNullOrEmpty(call.Callback))
+                        await Clients.Caller.Handle(new SignalCall
+                        {
+                            Method = call.Callback,
+                            Parameters = new
+                            {
+                                Headers = response.Headers.ToDictionary(_ => _.Key, _ => _.Value),
+                                Body = await response.Content.ReadAsStringAsync(),
+                            },
+                        });
+                }
+                else
+                    await Clients.Caller.Error(response.StatusCode.ToString(), (int)response.StatusCode);
             }
             catch (Exception ex)
             {
-                return new SignalResult
-                {
-                    Code = "-1",
-                    Data = ex.Message,
-                };
+                await Clients.Caller.Error(ex.Message, ex.HResult);
             }
         }
 
@@ -57,7 +56,7 @@ namespace Liyanjie.SignalApi.CompatShim.AspNetWebApi
             await Clients.Caller.Handle(new SignalCall
             {
                 Method = "Trace",
-                Data = $"Client connected:{Context.ConnectionId}",
+                Parameters = $"Client connected:{Context.ConnectionId}",
             });
         }
 
@@ -68,11 +67,15 @@ namespace Liyanjie.SignalApi.CompatShim.AspNetWebApi
             await Clients.Caller.Handle(new SignalCall
             {
                 Method = "Trace",
-                Data = $"Client reconnected:{Context.ConnectionId}",
+                Parameters = $"Client reconnected:{Context.ConnectionId}",
             });
         }
 
-        static HttpRequestMessage CreateRequest(string method, string url, IReadOnlyDictionary<string, IEnumerable<string>> headers, string data)
+        static HttpRequestMessage CreateRequest(
+            string url,
+            string method,
+            IReadOnlyDictionary<string, string[]> headers,
+            string data)
         {
             var request = new HttpRequestMessage(new HttpMethod(method), url);
             foreach (var header in headers)

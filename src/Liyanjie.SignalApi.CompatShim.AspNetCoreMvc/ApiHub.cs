@@ -8,44 +8,54 @@ using System.Threading.Tasks;
 
 using Liyanjie.SignalApi.Common;
 
-namespace Liyanjie.SignalApi.CompatShim.AspNetCoreMvc
-{
-    public class ApiHub : Microsoft.AspNetCore.SignalR.Hub<IApiClient>
-    {
-        public async Task<SignalResult> DispatchAsync(SignalCall call)
-        {
-            var req = JsonSerializer.Deserialize<ApiRequest>(call.Data);
-            req.Headers.Add(HeaderKeys.ConnectionId, new[] { Context.ConnectionId });
+using Microsoft.AspNetCore.SignalR;
 
-            await Clients.Caller.Handle(new SignalCall
-            {
-                Method = "Trace",
-                Data = $"Client call received:{req.HttpMethod}-{call.Method}",
-            });
+namespace Liyanjie.SignalApi.CompatShim
+{
+    public class ApiHub : Hub<IApiClient>, IApiHub
+    {
+        public async Task CallApi(SignalCall call)
+        {
+            await Clients.Caller.Trace($"Client call [{call.Method}] received");
+
+            var data = call.Parameters == null ? new ApiRequest() :
+            #region
+#if NETSTATNDARD2_0
+                (call.Parameters as Newtonsoft.Json.Linq.JObject).ToObject<ApiRequest>();
+#elif NETCOREAPP3_0
+                System.Text.Json.JsonSerializer.Deserialize<ApiRequest>(((System.Text.Json.JsonElement)call.Parameters).GetRawText());
+#else
+                new ApiRequest();
+#endif
+            #endregion
+            data.Headers.Add(HeaderKeys.ConnectionId, new[] { Context.ConnectionId });
 
             try
             {
-                var request = CreateRequest(req.HttpMethod, call.Method, req.Headers, req.Body);
+                var request = CreateRequest(call.Method, data.HttpMethod, data.Headers, data.Body);
                 var response = await GetResponse(request);
-                var code = (int)response.StatusCode;
-                var data = new
+
+                await Clients.Caller.Trace($"Client call [{call.Method}] done: {response.StatusCode}");
+
+                if (response.IsSuccessStatusCode)
                 {
-                    Headers = response.Headers.ToDictionary(_ => _.Key, _ => _.Value),
-                    Body = await response.Content.ReadAsStringAsync(),
-                };
-                return new SignalResult
-                {
-                    Code = code.ToString(),
-                    Data = JsonSerializer.Serialize(data),
-                };
+                    if (!string.IsNullOrEmpty(call.Callback))
+                        await Clients.Caller.Handle(new SignalCall
+                        {
+                            Method = call.Callback,
+                            Parameters = new
+                            {
+                                Headers = response.Headers.ToDictionary(_ => _.Key, _ => _.Value),
+                                Body = await response.Content.ReadAsStringAsync(),
+                            },
+                        });
+                }
+                else
+                    await Clients.Caller.Error(response.StatusCode.ToString(), (int)response.StatusCode);
             }
             catch (Exception ex)
             {
-                return new SignalResult
-                {
-                    Code = "-1",
-                    Data = ex.Message,
-                };
+                await Clients.Caller.Error(ex.Message, ex.HResult);
             }
         }
 
@@ -56,14 +66,14 @@ namespace Liyanjie.SignalApi.CompatShim.AspNetCoreMvc
             await Clients.Caller.Handle(new SignalCall
             {
                 Method = "Trace",
-                Data = $"Client connected:{Context.ConnectionId}",
+                Parameters = $"Client connected:{Context.ConnectionId}",
             });
         }
 
         static HttpRequestMessage CreateRequest(
-            string method,
             string url,
-            IReadOnlyDictionary<string, IEnumerable<string>> headers,
+            string method,
+            IReadOnlyDictionary<string, string[]> headers,
             string body)
         {
             var request = new HttpRequestMessage(new HttpMethod(method), url);

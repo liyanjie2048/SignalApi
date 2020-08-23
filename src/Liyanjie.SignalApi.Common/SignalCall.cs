@@ -3,6 +3,8 @@
     public class SignalCall
     {
         public string Method { get; set; }
-        public string Data { get; set; }
+        public object Parameters { get; set; }
+        public string AccessToken { get; set; }
+        public string Callback { get; set; }
     }
 }

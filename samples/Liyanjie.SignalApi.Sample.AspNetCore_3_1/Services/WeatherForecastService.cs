@@ -1,41 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Liyanjie.SignalApi.Abstrations;
+using Liyanjie.SignalApi.AspNetCore;
 using Liyanjie.SignalApi.Common;
-using Liyanjie.SignalApi.CompatShim;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
-namespace Liyanjie.SignalApi.CompatShim.Sample.AspNetCoreMvc.Controllers
+namespace Liyanjie.SignalApi.Sample.AspNetCore.Services
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastService : ServiceBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<WeatherForecastService> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastService(ILogger<WeatherForecastService> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<WeatherForecast>> Get(
-            [FromHeader(Name = HeaderKeys.ConnectionId)] string connectionId,
+        public async Task<WeatherForecast[]> Get(
             [FromServices] IHubContext<ApiHub, IApiClient> context)
         {
-            await context.Clients.Client(connectionId).Handle(new SignalCall
+            await context.Clients.Client(Context.ConnectionId).Handle(new SignalCall
             {
                 Method = "Trace",
+                Parameters = $"Reach controller action:{Context.ConnectionId}",
             });
 
             var rng = new Random();

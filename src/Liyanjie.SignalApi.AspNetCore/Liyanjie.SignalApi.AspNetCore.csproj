@@ -1,16 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+      <OutputType>Library</OutputType>
+      <TargetFrameworks>netstandard2.0;netcoreapp3.0;net5.0</TargetFrameworks>
+      <Description>Liyanjie.SignalApi.AspNetCore</Description>
+      <Copyright>© Liyanjie.net</Copyright>
+      <Authors>liyanjie8712@outlook.com</Authors>
+      <Company>Liyanjie.net</Company>
+      <RepositoryUrl>https://github.com/liyanjie8712/SignalApi</RepositoryUrl>
+      <PackageProjectUrl>https://github.com/liyanjie8712/SignalApi</PackageProjectUrl>
+      <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0" />
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DocumentationFile>bin\Release\Liyanjie.SignalApi.AspNetCore.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <Target Name="MovePackage" AfterTargets="Pack">
+        <Move SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="C:\_NugetPackages\" />
+    </Target>
+
+    <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+      <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+      <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Liyanjie.SignalApi.Abstrations\Liyanjie.SignalApi.Abstrations.csproj" />
     <ProjectReference Include="..\Liyanjie.SignalApi.Common\Liyanjie.SignalApi.Common.csproj" />
-    <ProjectReference Include="..\Liyanjie.SignalApi.Core\Liyanjie.SignalApi.Core.csproj" />
   </ItemGroup>
 
 </Project>

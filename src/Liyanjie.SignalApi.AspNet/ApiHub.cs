@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Liyanjie.SignalApi.Abstrations;
 using Liyanjie.SignalApi.Common;
 
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNet.SignalR;
 
-namespace Liyanjie.SignalApi.AspNetCore
+namespace Liyanjie.SignalApi.AspNet
 {
     public class ApiHub : Hub<IApiClient>, IApiHub
     {
@@ -23,7 +23,7 @@ namespace Liyanjie.SignalApi.AspNetCore
 
         public async Task CallApi(SignalCall call)
         {
-               await Clients.Caller.Trace($"Client call [{call.Method}] received");
+            await Clients.Caller.Trace($"Client call [{call.Method}] received");
 
             var context = await BuildContextAsync(call);
 
@@ -34,13 +34,7 @@ namespace Liyanjie.SignalApi.AspNetCore
             }
 
             var parameters = context.ApiMetadata.ApiDescriptor.Info.GetParameters()
-                .Select(_ =>
-#if NET5_0 || NETCOREAPP3_0
-                    System.Text.Json.JsonSerializer.Deserialize(((System.Text.Json.JsonElement)call.Parameters).GetRawText(), _.ParameterType)
-#else
-                    (call.Parameters as Newtonsoft.Json.Linq.JObject)?.ToObject(_.ParameterType)
-#endif
-                )
+                .Select(_ => (call.Parameters as Newtonsoft.Json.Linq.JObject)?.ToObject(_.ParameterType))
                 .ToArray();
             if (apiRegistration.ValidationProvider != null)
                 if (!await apiRegistration.ValidationProvider.ValidateAsync(parameters))
@@ -87,8 +81,7 @@ namespace Liyanjie.SignalApi.AspNetCore
                 apiDescriptor.FilterTypes
                     .Select(_ => serviceProvider.GetService(_))
                     .Where(_ => _ is IFilterMetadata)
-                    .Cast<IFilterMetadata>()
-            );
+                    .Cast<IFilterMetadata>());
             var user = await apiRegistration.AuthenticationProvider.GetUserAsync(call.AccessToken);
 
             return new ApiCallContext(Context.ConnectionId, apiMetadata, user);

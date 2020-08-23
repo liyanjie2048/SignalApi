@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 
 using Liyanjie.SignalApi.Common;
-using Liyanjie.SignalApi.CompatShim.AspNetWebApi;
+using Liyanjie.SignalApi.CompatShim;
 
 using Microsoft.AspNet.SignalR;
 
@@ -23,7 +23,7 @@ namespace Liyanjie.SignalApi.CompatShim.Sample.AspNetWebApi.Controllers
             await context.Clients.Client(connectionId).Handle(new SignalCall
             {
                 Method = "Trace",
-                Data = $"Reach controller action:{connectionId}",
+                Parameters = $"Reach controller action:{connectionId}",
             });
 
             return new string[] { "value1", "value2" };

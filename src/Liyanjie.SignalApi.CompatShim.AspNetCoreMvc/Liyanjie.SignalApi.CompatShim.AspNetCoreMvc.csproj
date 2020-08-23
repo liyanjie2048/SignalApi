@@ -2,10 +2,26 @@
 
   <PropertyGroup>
       <OutputType>Library</OutputType>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.0;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.0;net5.0;</TargetFrameworks>
+    <RootNamespace>Liyanjie.SignalApi.CompatShim</RootNamespace>
+      <Description>Liyanjie.SignalApi.CompatShim.AspNetCoreMvc</Description>
+      <Copyright>© Liyanjie.net</Copyright>
+      <Authors>liyanjie8712@outlook.com</Authors>
+      <Company>Liyanjie.net</Company>
+      <RepositoryUrl>https://github.com/liyanjie8712/SignalApi</RepositoryUrl>
+      <PackageProjectUrl>https://github.com/liyanjie8712/SignalApi</PackageProjectUrl>
+      <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DocumentationFile>bin\Release\Liyanjie.SignalApi.CompatShim.AspNetCoreMvc.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <Target Name="MovePackage" AfterTargets="Pack">
+        <Move SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="C:\_NugetPackages\" />
+    </Target>
+
+    <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>

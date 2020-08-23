@@ -46,7 +46,7 @@ namespace Liyanjie.SignalApi.CompatShim.Sample.AspNetCoreMvc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<CompatShim.AspNetCoreMvc.ApiHub>("/api-gateway");
+                endpoints.MapSignalApi();
                 endpoints.MapSwagger();
             });
         }
