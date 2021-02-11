@@ -20,11 +20,7 @@ namespace Liyanjie.SignalApi.CompatShim.Sample.AspNetWebApi.Controllers
         {
             var connectionId = Request.Headers.GetValues(HeaderKeys.ConnectionId).FirstOrDefault();
             var context = GlobalHost.ConnectionManager.GetHubContext<ApiHub, IApiClient>();
-            await context.Clients.Client(connectionId).Handle(new SignalCall
-            {
-                Method = "Trace",
-                Parameters = $"Reach controller action:{connectionId}",
-            });
+            await context.Clients.Client(connectionId).Trace($"Reach controller action:{connectionId}");
 
             return new string[] { "value1", "value2" };
         }

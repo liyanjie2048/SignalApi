@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Liyanjie.SignalApi.Abstrations;
 using Liyanjie.SignalApi.Common;
 
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Liyanjie.SignalApi.AspNetCore
 {
@@ -23,7 +23,7 @@ namespace Liyanjie.SignalApi.AspNetCore
 
         public async Task CallApi(SignalCall call)
         {
-               await Clients.Caller.Trace($"Client call [{call.Method}] received");
+            await Clients.Caller.Trace($"Client call [{call.Method}] received");
 
             var context = await BuildContextAsync(call);
 
@@ -35,7 +35,7 @@ namespace Liyanjie.SignalApi.AspNetCore
 
             var parameters = context.ApiMetadata.ApiDescriptor.Info.GetParameters()
                 .Select(_ =>
-#if NET5_0 || NETCOREAPP3_0
+#if NETCOREAPP3_0 || NET5_0
                     System.Text.Json.JsonSerializer.Deserialize(((System.Text.Json.JsonElement)call.Parameters).GetRawText(), _.ParameterType)
 #else
                     (call.Parameters as Newtonsoft.Json.Linq.JObject)?.ToObject(_.ParameterType)
@@ -51,7 +51,7 @@ namespace Liyanjie.SignalApi.AspNetCore
 
             try
             {
-                var service = serviceProvider.GetService(context.ApiMetadata.ApiDescriptor.Info.DeclaringType) as ServiceBase;
+                var service = ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, context.ApiMetadata.ApiDescriptor.Info.DeclaringType) as ServiceBase;
                 service.Context = context;
 
                 var excutingContext = new ApiExecutingContext(context, service, parameters);
@@ -65,10 +65,10 @@ namespace Liyanjie.SignalApi.AspNetCore
                     return;
 
                 if (!string.IsNullOrEmpty(call.Callback))
-                    await Clients.Caller.Handle(new SignalCall
+                    await Clients.Caller.Handle(new SignalResult
                     {
                         Method = call.Callback,
-                        Parameters = executedContext.Result,
+                        Data = executedContext.Result,
                     });
             }
             catch (Exception exception)
@@ -82,12 +82,16 @@ namespace Liyanjie.SignalApi.AspNetCore
         async Task<ApiCallContext> BuildContextAsync(SignalCall call)
         {
             var apiDescriptor = apiRegistration.ApiCollections.SingleOrDefault(_ => _.Name == call.Method);
+            if (apiDescriptor == null)
+                throw new Exception($"Could not find descriptor by method \"{call.Method}\"");
+
             var apiMetadata = new ApiMetadata(
                 apiDescriptor,
                 apiDescriptor.FilterTypes
-                    .Select(_ => serviceProvider.GetService(_))
+                    .Select(_ => ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, _))
                     .Where(_ => _ is IFilterMetadata)
                     .Cast<IFilterMetadata>()
+                    .Union(apiRegistration.GlobalFilters)
             );
             var user = await apiRegistration.AuthenticationProvider.GetUserAsync(call.AccessToken);
 

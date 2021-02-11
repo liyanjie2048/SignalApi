@@ -40,10 +40,10 @@ namespace Liyanjie.SignalApi.CompatShim
                 if (response.IsSuccessStatusCode)
                 {
                     if (!string.IsNullOrEmpty(call.Callback))
-                        await Clients.Caller.Handle(new SignalCall
+                        await Clients.Caller.Handle(new SignalResult
                         {
                             Method = call.Callback,
-                            Parameters = new
+                            Data = new
                             {
                                 Headers = response.Headers.ToDictionary(_ => _.Key, _ => _.Value),
                                 Body = await response.Content.ReadAsStringAsync(),
@@ -63,11 +63,7 @@ namespace Liyanjie.SignalApi.CompatShim
         {
             await base.OnConnectedAsync();
 
-            await Clients.Caller.Handle(new SignalCall
-            {
-                Method = "Trace",
-                Parameters = $"Client connected:{Context.ConnectionId}",
-            });
+            await Clients.Caller.Trace($"Client connected:{Context.ConnectionId}");
         }
 
         static HttpRequestMessage CreateRequest(

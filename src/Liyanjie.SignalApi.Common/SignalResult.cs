@@ -2,7 +2,7 @@
 {
     public class SignalResult
     {
-        public string Code { get; set; }
-        public string Data { get; set; }
+        public string Method { get; set; }
+        public object Data { get; set; }
     }
 }

@@ -33,10 +33,7 @@ namespace Liyanjie.SignalApi.CompatShim.Sample.AspNetCoreMvc.Controllers
             [FromHeader(Name = HeaderKeys.ConnectionId)] string connectionId,
             [FromServices] IHubContext<ApiHub, IApiClient> context)
         {
-            await context.Clients.Client(connectionId).Handle(new SignalCall
-            {
-                Method = "Trace",
-            });
+            await context.Clients.Client(connectionId).Trace($"Reach controller action:{connectionId}");
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

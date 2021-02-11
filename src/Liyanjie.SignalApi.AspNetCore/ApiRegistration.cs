@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Liyanjie.SignalApi.Abstrations
+namespace Liyanjie.SignalApi.AspNetCore
 {
     public class ApiRegistration
     {

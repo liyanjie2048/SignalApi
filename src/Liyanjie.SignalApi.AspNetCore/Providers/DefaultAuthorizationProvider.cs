@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 
-namespace Liyanjie.SignalApi.Abstrations
+namespace Liyanjie.SignalApi.AspNetCore
 {
     public class DefaultAuthorizationProvider : IAuthorizationProvider
     {

@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace Liyanjie.SignalApi.Abstrations
+namespace Liyanjie.SignalApi.AspNetCore
 {
     public class ApiCallContext
     {

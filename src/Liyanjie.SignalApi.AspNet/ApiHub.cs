@@ -59,10 +59,10 @@ namespace Liyanjie.SignalApi.AspNet
                     return;
 
                 if (!string.IsNullOrEmpty(call.Callback))
-                    await Clients.Caller.Handle(new SignalCall
+                    await Clients.Caller.Handle(new SignalResult
                     {
                         Method = call.Callback,
-                        Parameters = executedContext.Result,
+                        Data = executedContext.Result,
                     });
             }
             catch (Exception exception)
@@ -76,6 +76,9 @@ namespace Liyanjie.SignalApi.AspNet
         async Task<ApiCallContext> BuildContextAsync(SignalCall call)
         {
             var apiDescriptor = apiRegistration.ApiCollections.SingleOrDefault(_ => _.Name == call.Method);
+            if(apiDescriptor==null)
+                throw new Exception($"Could not find descriptor by method \"{call.Method}\"");
+
             var apiMetadata = new ApiMetadata(
                 apiDescriptor,
                 apiDescriptor.FilterTypes

@@ -10,6 +10,8 @@ namespace Liyanjie.SignalApi.Sample.AspNetCore_3_1
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR()
+                .AddJsonProtocol();
             services.AddSignalApi(apis =>
             {
                 apis.RegisterApisFromAssemblyByClass<Startup>();

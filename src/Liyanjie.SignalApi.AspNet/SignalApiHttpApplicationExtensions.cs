@@ -17,9 +17,10 @@ namespace System.Web
             if (configureApis == null)
                 throw new ArgumentNullException(nameof(configureApis));
 
-            configureApis.Invoke(apiRegistration);
+            var _apiRegistration = new ApiRegistration(); 
+            configureApis.Invoke(_apiRegistration);
 
-            registerServiceImplementationFactory.Invoke(typeof(ApiRegistration), serviceProvider => apiRegistration, "Singleton");
+            registerServiceImplementationFactory.Invoke(typeof(ApiRegistration), serviceProvider => _apiRegistration, "Singleton");
 
             return app;
         }

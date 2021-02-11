@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Liyanjie.SignalApi.Abstrations\Liyanjie.SignalApi.Abstrations.csproj" />
     <ProjectReference Include="..\Liyanjie.SignalApi.Common\Liyanjie.SignalApi.Common.csproj" />
   </ItemGroup>
 

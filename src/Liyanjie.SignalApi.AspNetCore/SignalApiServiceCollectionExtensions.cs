@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Liyanjie.SignalApi.Abstrations;
+using Liyanjie.SignalApi.AspNetCore;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
