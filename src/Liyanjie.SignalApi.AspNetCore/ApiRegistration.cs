@@ -3,26 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Liyanjie.SignalApi.AspNetCore
 {
-    public class ApiRegistration
+    public sealed class ApiRegistration
     {
-        readonly Type type_serviceBase = typeof(ServiceBase);
+        readonly Type type_apiServiceBase = typeof(ApiServiceBase);
         readonly Type type_filterMetadata = typeof(IFilterMetadata);
+
+        public ApiRegistration(IServiceCollection services)
+        {
+            Services = services;
+        }
+
+        public IServiceCollection Services { get; }
 
         public ICollection<ApiDescriptor> ApiCollections { get; } = new List<ApiDescriptor>();
         public ICollection<IFilterMetadata> GlobalFilters { get; } = new List<IFilterMetadata>();
-
-        public IAuthenticationProvider AuthenticationProvider { get; set; } = new DefaultAuthenticationProvider();
-        public IAuthorizationProvider AuthorizationProvider { get; set; } = new DefaultAuthorizationProvider();
-        public IValidationProvider ValidationProvider { get; set; }
 
         public ApiRegistration RegisterApisFromAssemblyByClass<TClass>()
         {
             var assembly = typeof(TClass).Assembly;
             var serviceTypes = assembly.DefinedTypes
                 .Where(_ => !_.IsAbstract)
-                .Where(_ => type_serviceBase.IsAssignableFrom(_))
+                .Where(_ => type_apiServiceBase.IsAssignableFrom(_))
                 .ToList();
             foreach (var type in serviceTypes)
             {

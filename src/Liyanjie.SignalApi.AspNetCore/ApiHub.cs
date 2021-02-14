@@ -27,7 +27,8 @@ namespace Liyanjie.SignalApi.AspNetCore
 
             var context = await BuildContextAsync(call);
 
-            if (!await apiRegistration.AuthorizationProvider.CheckAuthorizedAsync(context))
+            var authorizationProvider = serviceProvider.GetRequiredService<IAuthorizationProvider>();
+            if (!await authorizationProvider.CheckAuthorizedAsync(context))
             {
                 await Clients.Caller.Error("UnAuthorized");
                 return;
@@ -42,17 +43,19 @@ namespace Liyanjie.SignalApi.AspNetCore
 #endif
                 )
                 .ToArray();
-            if (apiRegistration.ValidationProvider != null)
-                if (!await apiRegistration.ValidationProvider.ValidateAsync(parameters))
+
+            var validationProvider = serviceProvider.GetService<IValidationProvider>();
+            if (validationProvider != null)
+                if (!await validationProvider.ValidateAsync(parameters))
                 {
-                    await Clients.Caller.Error("ValidationError", errors: apiRegistration.ValidationProvider.Errors);
+                    await Clients.Caller.Error("ValidationError", errors: validationProvider.Errors);
                     return;
                 }
 
             try
             {
-                var service = ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, context.ApiMetadata.ApiDescriptor.Info.DeclaringType) as ServiceBase;
-                service.Context = context;
+                var service = ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, context.ApiMetadata.ApiDescriptor.Info.DeclaringType) as ApiServiceBase;
+                service.CallContext = context;
 
                 var excutingContext = new ApiExecutingContext(context, service, parameters);
                 if (!await OnExecutingAsync(excutingContext))
@@ -93,10 +96,12 @@ namespace Liyanjie.SignalApi.AspNetCore
                     .Cast<IFilterMetadata>()
                     .Union(apiRegistration.GlobalFilters)
             );
-            var user = await apiRegistration.AuthenticationProvider.GetUserAsync(call.AccessToken);
+
+            var user = await serviceProvider.GetRequiredService<IAuthenticationProvider>().GetUserAsync(call.AccessToken);
 
             return new ApiCallContext(Context.ConnectionId, apiMetadata, user);
         }
+
         static async Task<bool> OnExecutingAsync(ApiExecutingContext context)
         {
             var continued = true;

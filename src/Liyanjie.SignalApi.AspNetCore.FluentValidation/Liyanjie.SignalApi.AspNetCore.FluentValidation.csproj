@@ -1,10 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <IsPackable>true</IsPackable>
-        <TargetFrameworks>net45;</TargetFrameworks>
-        <RootNamespace>Liyanjie.SignalApi.CompatShim</RootNamespace>
-        <Description>Liyanjie.SignalApi.CompatShim.AspNetWebApi</Description>
+        <TargetFrameworks>netstandard2.0;netcoreapp3.0;net5.0;</TargetFrameworks>
+        <Description>Liyanjie.SignalApi.AspNetCore.FluentValidation</Description>
         <Copyright>© Liyanjie.net</Copyright>
         <Authors>liyanjie8712@outlook.com</Authors>
         <Company>Liyanjie.net</Company>
@@ -14,7 +12,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='Release'">
-        <DocumentationFile>bin\Release\Liyanjie.SignalApi.CompatShim.AspNetWebApi.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\Liyanjie.SignalApi.AspNetCore.FluentValidation.xml</DocumentationFile>
     </PropertyGroup>
 
     <Target Name="MovePackage" AfterTargets="Pack">
@@ -22,15 +20,11 @@
     </Target>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNet.SignalR.SystemWeb" Version="2.4.1" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.3.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Liyanjie.SignalApi.Common\Liyanjie.SignalApi.Common.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="System.Net.Http" />
+        <ProjectReference Include="..\Liyanjie.SignalApi.AspNetCore\Liyanjie.SignalApi.AspNetCore.csproj" />
     </ItemGroup>
 
 </Project>

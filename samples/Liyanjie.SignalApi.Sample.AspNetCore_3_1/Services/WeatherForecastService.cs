@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Liyanjie.SignalApi.Sample.AspNetCore_3_1.Services
 {
-    public class WeatherForecastService : ServiceBase
+    public class WeatherForecastService : ApiServiceBase
     {
         static readonly string[] Summaries = new[]
         {
@@ -31,7 +31,7 @@ namespace Liyanjie.SignalApi.Sample.AspNetCore_3_1.Services
         [ApiMethod("GetWeatherForecasts")]
         public async Task<WeatherForecast[]> Get()
         {
-            await _context.Clients.Client(Context.ConnectionId).Trace($"Reach service:{Context.ConnectionId}");
+            await _context.Clients.Client(CallContext.ConnectionId).Trace($"Reach service:{CallContext.ConnectionId}");
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
