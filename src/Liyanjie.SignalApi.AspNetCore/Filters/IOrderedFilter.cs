@@ -14,15 +14,9 @@ namespace Liyanjie.SignalApi.AspNetCore
         /// Filters are executed in an ordering determined by an ascending sort of the <see cref="Order"/> property.
         /// </para>
         /// <para>
-        /// Asynchronous filters, such as <see cref="IAsyncActionFilter"/>, surround the execution of subsequent
-        /// filters of the same filter kind. An asynchronous filter with a lower numeric <see cref="Order"/>
-        /// value will have its filter method, such as <see cref="IAsyncActionFilter.OnActionExecutionAsync"/>,
-        /// executed before that of a filter with a higher value of <see cref="Order"/>.
-        /// </para>
-        /// <para>
-        /// Synchronous filters, such as <see cref="IActionFilter"/>, have a before-method, such as
-        /// <see cref="IActionFilter.OnActionExecuting"/>, and an after-method, such as
-        /// <see cref="IActionFilter.OnActionExecuted"/>. A synchronous filter with a lower numeric <see cref="Order"/>
+        /// Synchronous filters, such as <see cref="IApiCallFilter"/>, have a before-method, such as
+        /// <see cref="IApiCallFilter.OnExecutingAsync"/>, and an after-method, such as
+        /// <see cref="IApiCallFilter.OnExecutedAsync"/>. A synchronous filter with a lower numeric <see cref="Order"/>
         /// value will have its before-method executed before that of a filter with a higher value of
         /// <see cref="Order"/>. During the after-stage of the filter, a synchronous filter with a lower
         /// numeric <see cref="Order"/> value will have its after-method executed after that of a filter with a higher

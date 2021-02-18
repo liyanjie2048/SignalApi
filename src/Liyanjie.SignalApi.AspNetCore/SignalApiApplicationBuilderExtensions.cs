@@ -5,8 +5,17 @@ using Liyanjie.SignalApi.AspNetCore;
 
 namespace Microsoft.AspNetCore.Builder
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class SignalApiApplicationBuilderExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
 #if NETCOREAPP3_0
         [Obsolete]
 #endif

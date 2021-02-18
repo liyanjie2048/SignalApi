@@ -9,10 +9,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Liyanjie.SignalApi.AspNetCore
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ApiHub : Hub<IApiClient>, IApiHub
     {
         readonly IServiceProvider serviceProvider;
         readonly ApiRegistration apiRegistration;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="apiRegistration"></param>
         public ApiHub(
             IServiceProvider serviceProvider,
             ApiRegistration apiRegistration)
@@ -21,6 +30,11 @@ namespace Liyanjie.SignalApi.AspNetCore
             this.apiRegistration = apiRegistration;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="call"></param>
+        /// <returns></returns>
         public async Task CallApi(SignalCall call)
         {
             await Clients.Caller.Trace($"Client call [{call.Method}] received");

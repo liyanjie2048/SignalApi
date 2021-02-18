@@ -13,6 +13,7 @@ namespace Microsoft.AspNetCore.Builder
         /// 
         /// </summary>
         /// <param name="endpoints"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
         public static IEndpointRouteBuilder MapSignalApi(this IEndpointRouteBuilder endpoints,
             string path = "/signalApi")

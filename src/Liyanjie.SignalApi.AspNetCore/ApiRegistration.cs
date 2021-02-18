@@ -7,21 +7,42 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Liyanjie.SignalApi.AspNetCore
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class ApiRegistration
     {
         readonly Type type_apiServiceBase = typeof(ApiServiceBase);
         readonly Type type_filterMetadata = typeof(IFilterMetadata);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
         public ApiRegistration(IServiceCollection services)
         {
             Services = services;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IServiceCollection Services { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICollection<ApiDescriptor> ApiCollections { get; } = new List<ApiDescriptor>();
+        /// <summary>
+        /// 
+        /// </summary>
         public ICollection<IFilterMetadata> GlobalFilters { get; } = new List<IFilterMetadata>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TClass"></typeparam>
+        /// <returns></returns>
         public ApiRegistration RegisterApisFromAssemblyByClass<TClass>()
         {
             var assembly = typeof(TClass).Assembly;

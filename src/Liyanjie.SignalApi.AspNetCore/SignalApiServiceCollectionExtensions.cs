@@ -4,8 +4,17 @@ using Liyanjie.SignalApi.AspNetCore;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class SignalApiServiceCollectionExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configureApis"></param>
+        /// <returns></returns>
         public static ApiRegistration AddSignalApi(this IServiceCollection services,
             Action<ApiRegistration> configureApis)
         {
@@ -23,6 +32,12 @@ namespace Microsoft.Extensions.DependencyInjection
             return apiRegistration;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TAuthenticationProvider"></typeparam>
+        /// <param name="registration"></param>
+        /// <returns></returns>
         public static ApiRegistration AddAuthenticationProvider<TAuthenticationProvider>(this ApiRegistration registration)
             where TAuthenticationProvider : class, IAuthenticationProvider
         {
@@ -30,6 +45,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return registration;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TAuthorizationProvider"></typeparam>
+        /// <param name="registration"></param>
+        /// <returns></returns>
         public static ApiRegistration AddAuthorizationProvider<TAuthorizationProvider>(this ApiRegistration registration)
             where TAuthorizationProvider : class, IAuthorizationProvider
         {
@@ -37,6 +59,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return registration;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TValidationProvider"></typeparam>
+        /// <param name="registration"></param>
+        /// <returns></returns>
         public static ApiRegistration AddValidationProvider<TValidationProvider>(this ApiRegistration registration)
             where TValidationProvider : class, IValidationProvider
         {

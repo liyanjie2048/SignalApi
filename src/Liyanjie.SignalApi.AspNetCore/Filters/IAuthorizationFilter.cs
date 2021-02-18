@@ -7,6 +7,11 @@ namespace Liyanjie.SignalApi.AspNetCore
     /// </summary>
     public interface IAuthorizationFilter : IFilterMetadata
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         Task<bool> AuthorizeAsync(ApiCallContext context);
     }
 }

@@ -3,9 +3,17 @@ using System.Threading.Tasks;
 
 namespace Liyanjie.SignalApi.AspNetCore
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DefaultAuthorizationProvider : IAuthorizationProvider
     {
-        public async Task<bool> CheckAuthorizedAsync(ApiCallContext context)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public virtual async Task<bool> CheckAuthorizedAsync(ApiCallContext context)
         {
             var authorized = true;
 
