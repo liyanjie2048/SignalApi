@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <IsPackable>true</IsPackable>
-        <TargetFrameworks>netstandard2.0;netcoreapp3.0;net5.0;</TargetFrameworks>
+        <TargetFrameworks>net5.0;</TargetFrameworks>
         <Description>Liyanjie.SignalApi.AspNetCore</Description>
         <Copyright>© Liyanjie.net</Copyright>
         <Authors>liyanjie8712@outlook.com</Authors>
@@ -20,11 +20,6 @@
     <Target Name="MovePackage" AfterTargets="Pack">
         <Move SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="C:\_NugetPackages\" />
     </Target>
-
-    <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-        <PackageReference Include="System.Text.Json" Version="4.7.2" />
-    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Liyanjie.SignalApi.Common\Liyanjie.SignalApi.Common.csproj" />

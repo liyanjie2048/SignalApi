@@ -1,6 +1,6 @@
 using System;
 
-namespace Liyanjie.SignalApi.Sample.AspNetCore_3_1
+namespace Liyanjie.SignalApi.Sample.AspNetCore
 {
     public class WeatherForecast
     {

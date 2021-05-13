@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Liyanjie.SignalApi.Sample.AspNetCore_3_1": {
+    "Liyanjie.SignalApi.Sample.AspNetCore": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5000",

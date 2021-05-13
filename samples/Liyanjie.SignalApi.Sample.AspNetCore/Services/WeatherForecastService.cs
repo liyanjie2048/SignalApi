@@ -8,7 +8,7 @@ using Liyanjie.SignalApi.Common;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
-namespace Liyanjie.SignalApi.Sample.AspNetCore_3_1.Services
+namespace Liyanjie.SignalApi.Sample.AspNetCore.Services
 {
     public class WeatherForecastService : ApiServiceBase
     {

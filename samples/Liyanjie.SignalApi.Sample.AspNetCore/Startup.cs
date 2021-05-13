@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Liyanjie.SignalApi.Sample.AspNetCore_3_1
+namespace Liyanjie.SignalApi.Sample.AspNetCore
 {
     public class Startup
     {

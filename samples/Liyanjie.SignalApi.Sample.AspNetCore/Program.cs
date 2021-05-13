@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Liyanjie.SignalApi.Sample.AspNetCore_3_1
+namespace Liyanjie.SignalApi.Sample.AspNetCore
 {
     public class Program
     {
