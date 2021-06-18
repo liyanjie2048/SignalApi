@@ -11,8 +11,16 @@ using Microsoft.AspNet.SignalR;
 
 namespace Liyanjie.SignalApi.CompatShim
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ApiHub : Hub<IApiClient>, IApiHub
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="call"></param>
+        /// <returns></returns>
         public async Task CallApi(SignalCall call)
         {
             await Clients.Caller.Trace($"Client call [{call.Method}] received");
@@ -49,6 +57,10 @@ namespace Liyanjie.SignalApi.CompatShim
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override async Task OnConnected()
         {
             await base.OnConnected();
@@ -56,6 +68,10 @@ namespace Liyanjie.SignalApi.CompatShim
             await Clients.Caller.Trace($"Client connected:{Context.ConnectionId}");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override async Task OnReconnected()
         {
             await base.OnReconnected();

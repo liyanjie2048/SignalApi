@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <TargetFrameworks>net45;</TargetFrameworks>
+        <TargetFrameworks>net452;</TargetFrameworks>
         <RootNamespace>Liyanjie.SignalApi.CompatShim</RootNamespace>
         <Description>Liyanjie.SignalApi.CompatShim.AspNetWebApi</Description>
         <Copyright>© Liyanjie.net</Copyright>
@@ -23,13 +23,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNet.SignalR.SystemWeb" Version="2.4.2" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\Liyanjie.SignalApi.Common\Liyanjie.SignalApi.Common.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Reference Include="System.Net.Http" />
     </ItemGroup>
 
