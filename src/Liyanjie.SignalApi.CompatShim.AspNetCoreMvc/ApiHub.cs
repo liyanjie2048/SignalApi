@@ -19,15 +19,7 @@ namespace Liyanjie.SignalApi.CompatShim
             await Clients.Caller.Trace($"Client call [{call.Method}] received");
 
             var data = call.Parameters == null ? new ApiRequest() :
-            #region
-#if NETSTATNDARD2_0
-                (call.Parameters as Newtonsoft.Json.Linq.JObject).ToObject<ApiRequest>();
-#elif NETCOREAPP3_0
-                System.Text.Json.JsonSerializer.Deserialize<ApiRequest>(((System.Text.Json.JsonElement)call.Parameters).GetRawText());
-#else
-                new ApiRequest();
-#endif
-            #endregion
+                JsonSerializer.Deserialize<ApiRequest>(((JsonElement)call.Parameters).GetRawText());
             data.Headers.Add(HeaderKeys.ConnectionId, new[] { Context.ConnectionId });
 
             try

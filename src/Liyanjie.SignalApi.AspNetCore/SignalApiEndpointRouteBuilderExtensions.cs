@@ -1,5 +1,4 @@
-﻿#if NETCOREAPP3_0 || NET5_0
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.AspNetCore.Builder
@@ -24,4 +23,3 @@ namespace Microsoft.AspNetCore.Builder
         }
     }
 }
-#endif

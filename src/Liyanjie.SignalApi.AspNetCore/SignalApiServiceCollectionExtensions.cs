@@ -15,7 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="configureApis"></param>
         /// <returns></returns>
-        public static ApiRegistration AddSignalApi(this IServiceCollection services,
+        public static IServiceCollection AddSignalApi(this IServiceCollection services,
             Action<ApiRegistration> configureApis)
         {
             if (configureApis == null)
@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddScoped<IAuthenticationProvider, DefaultAuthenticationProvider>()
                 .AddScoped<IAuthorizationProvider, DefaultAuthorizationProvider>();
 
-            return apiRegistration;
+            return services;
         }
 
         /// <summary>

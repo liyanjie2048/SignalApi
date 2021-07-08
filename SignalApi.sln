@@ -27,7 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.AspNetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.Sample.AspNetCore", "samples\Liyanjie.SignalApi.Sample.AspNetCore\Liyanjie.SignalApi.Sample.AspNetCore.csproj", "{D5C7FCAB-22CF-4211-9CB7-14539BF27E99}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Net452", "test\Test.Net452\Test.Net452.csproj", "{0F0C7B89-4EE7-436D-AD4E-74E7D2F25CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Netframework", "test\Test.NetFramework\Test.Netframework.csproj", "{B07F5676-671E-4124-B0CC-8F21FDB230B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5200D795-75B8-42AD-A958-B83B64AAD05F}"
+	ProjectSection(SolutionItems) = preProject
+		liyanjie.net.256.png = liyanjie.net.256.png
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +77,10 @@ Global
 		{D5C7FCAB-22CF-4211-9CB7-14539BF27E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C7FCAB-22CF-4211-9CB7-14539BF27E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C7FCAB-22CF-4211-9CB7-14539BF27E99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F0C7B89-4EE7-436D-AD4E-74E7D2F25CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F0C7B89-4EE7-436D-AD4E-74E7D2F25CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F0C7B89-4EE7-436D-AD4E-74E7D2F25CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F0C7B89-4EE7-436D-AD4E-74E7D2F25CFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B07F5676-671E-4124-B0CC-8F21FDB230B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B07F5676-671E-4124-B0CC-8F21FDB230B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B07F5676-671E-4124-B0CC-8F21FDB230B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B07F5676-671E-4124-B0CC-8F21FDB230B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,7 +95,7 @@ Global
 		{F62CBFEA-DE49-4044-BED1-BE707711C537} = {C8645FCA-9422-46D6-90A6-9FB306A461DB}
 		{61D8C7B0-9D70-483B-9BF0-9A32CA77ABF4} = {67FA5076-4396-40B3-8AD5-7BB2565A5BF1}
 		{D5C7FCAB-22CF-4211-9CB7-14539BF27E99} = {C8645FCA-9422-46D6-90A6-9FB306A461DB}
-		{0F0C7B89-4EE7-436D-AD4E-74E7D2F25CFC} = {CA862125-AE25-487A-AF9B-931B973F421C}
+		{B07F5676-671E-4124-B0CC-8F21FDB230B6} = {CA862125-AE25-487A-AF9B-931B973F421C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C59727-5084-400D-8801-8B8415EBCD66}
