@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Liyanjie.SignalApi.CompatShim.AspNetCoreMvc\Liyanjie.SignalApi.CompatShim.AspNetCoreMvc.csproj" />
+    <ProjectReference Include="..\..\src\Liyanjie.SignalApi.CompatShim.AspNetCore.Mvc\Liyanjie.SignalApi.CompatShim.AspNetCore.Mvc.csproj" />
   </ItemGroup>
 
 

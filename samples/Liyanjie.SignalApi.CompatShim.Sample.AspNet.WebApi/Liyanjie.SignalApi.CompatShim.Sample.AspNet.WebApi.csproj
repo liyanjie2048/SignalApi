@@ -141,9 +141,9 @@
       <Project>{f9e098f4-85fd-4091-a15b-926206dce573}</Project>
       <Name>Liyanjie.SignalApi.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Liyanjie.SignalApi.CompatShim.AspNetWebApi\Liyanjie.SignalApi.CompatShim.AspNetWebApi.csproj">
+    <ProjectReference Include="..\..\src\Liyanjie.SignalApi.CompatShim.AspNet.WebApi\Liyanjie.SignalApi.CompatShim.AspNet.WebApi.csproj">
       <Project>{60009369-0ce0-4d22-a563-5e0b6dfd4749}</Project>
-      <Name>Liyanjie.SignalApi.CompatShim.AspNetWebApi</Name>
+      <Name>Liyanjie.SignalApi.CompatShim.AspNet.WebApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

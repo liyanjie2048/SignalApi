@@ -3,7 +3,6 @@
 一系列帮助类及扩展方法、小组件等
 
 - #### Liyanjie.SignalApi.Common
-    Code认证
   - IApiClient
   - IApiHub
   - SignalCall
@@ -34,13 +33,13 @@
             .AddFluentValidationFromAssemblyByClass<TClass>();
     });
     ```
-- #### Liyanjie.SignalApi.CompatShim.AspNetCoreMvc
+- #### Liyanjie.SignalApi.CompatShim.AspNetCore.Mvc
   - Usage
     ```csharp
     //endpoints is IEndpointRouteBuilder
     endpoints.MapSignalApi(string path = "/signalApi");
     ```
-- #### Liyanjie.SignalApi.CompatShim.AspNetWebApi
+- #### Liyanjie.SignalApi.CompatShim.AspNet.WebApi
   - Usage
     ```csharp
     using Microsoft.Owin;

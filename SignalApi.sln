@@ -11,17 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "test\Test\Test.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.Common", "src\Liyanjie.SignalApi.Common\Liyanjie.SignalApi.Common.csproj", "{F9E098F4-85FD-4091-A15B-926206DCE573}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.CompatShim.AspNetCoreMvc", "src\Liyanjie.SignalApi.CompatShim.AspNetCoreMvc\Liyanjie.SignalApi.CompatShim.AspNetCoreMvc.csproj", "{F284CB99-60F6-475F-8F6B-CB071B176F0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.CompatShim.AspNetCore.Mvc", "src\Liyanjie.SignalApi.CompatShim.AspNetCore.Mvc\Liyanjie.SignalApi.CompatShim.AspNetCore.Mvc.csproj", "{F284CB99-60F6-475F-8F6B-CB071B176F0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.CompatShim.AspNetWebApi", "src\Liyanjie.SignalApi.CompatShim.AspNetWebApi\Liyanjie.SignalApi.CompatShim.AspNetWebApi.csproj", "{60009369-0CE0-4D22-A563-5E0B6DFD4749}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.CompatShim.AspNet.WebApi", "src\Liyanjie.SignalApi.CompatShim.AspNet.WebApi\Liyanjie.SignalApi.CompatShim.AspNet.WebApi.csproj", "{60009369-0CE0-4D22-A563-5E0B6DFD4749}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{C8645FCA-9422-46D6-90A6-9FB306A461DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.AspNetCore", "src\Liyanjie.SignalApi.AspNetCore\Liyanjie.SignalApi.AspNetCore.csproj", "{298E1A07-A0A3-443D-B863-07DDBCC7DD3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liyanjie.SignalApi.CompatShim.Sample.AspNetWebApi", "samples\Liyanjie.SignalApi.CompatShim.Sample.AspNetWebApi\Liyanjie.SignalApi.CompatShim.Sample.AspNetWebApi.csproj", "{862408C6-111E-44E7-AE19-10AF375FEF6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liyanjie.SignalApi.CompatShim.Sample.AspNet.WebApi", "samples\Liyanjie.SignalApi.CompatShim.Sample.AspNet.WebApi\Liyanjie.SignalApi.CompatShim.Sample.AspNet.WebApi.csproj", "{862408C6-111E-44E7-AE19-10AF375FEF6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.CompatShim.Sample.AspNetCoreMvc", "samples\Liyanjie.SignalApi.CompatShim.Sample.AspNetCoreMvc\Liyanjie.SignalApi.CompatShim.Sample.AspNetCoreMvc.csproj", "{F62CBFEA-DE49-4044-BED1-BE707711C537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.CompatShim.Sample.AspNetCore.Mvc", "samples\Liyanjie.SignalApi.CompatShim.Sample.AspNetCore.Mvc\Liyanjie.SignalApi.CompatShim.Sample.AspNetCore.Mvc.csproj", "{F62CBFEA-DE49-4044-BED1-BE707711C537}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.SignalApi.AspNetCore.FluentValidation", "src\Liyanjie.SignalApi.AspNetCore.FluentValidation\Liyanjie.SignalApi.AspNetCore.FluentValidation.csproj", "{61D8C7B0-9D70-483B-9BF0-9A32CA77ABF4}"
 EndProject
